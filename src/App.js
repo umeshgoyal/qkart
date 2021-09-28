@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import "antd/dist/antd.css";
+import React, { useLayoutEffect } from "react";
+import { Route, Switch, useLocation } from "react-router-dom";
+import Checkout from "./components/Checkout";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Search from "./components/Search";
+import Thanks from "./components/Thanks";
 
-function App() {
+export const config = {
+  endpoint: `https://qkart-backend1.herokuapp.com/api/v1`,
+};
+
+export default function App(props) {
+  const location = useLocation();
+  // Scroll to top if path changes
+  useLayoutEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+      <Route path="/register">
+          <Register />
+        </Route>
+        {/* TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS - To add route for /register */}
+
+        {/* TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS - To add route for /login */}
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/products">
+          <Search />
+        </Route>
+        <Route path="/checkout">
+          <Checkout />
+        </Route>
+
+        <Route path="/thanks">
+          <Thanks />
+        </Route>
+
+        <Route path="/">
+          <Home />
+        </Route>
+
+      </Switch>
+      
+       
+
     </div>
   );
 }
-
-export default App;
